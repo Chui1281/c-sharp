@@ -1,16 +1,27 @@
-﻿//exersize 1
+//exersize 1
 namespace ConsoleApp1;
 
 class Program
 {
     static void Main(string[] args)
     {
-        int i = Convert.ToInt32(Console.ReadLine());
+        int i;
         List<int> array = new List<int>();
-        while(i!=0)
+        while(true)
         {
+            if (!int.TryParse(Console.ReadLine(), out i))
+            {
+                Console.WriteLine("Введите целое число");
+                continue;
+            }
+
+            if (i == 0) break;
             array.Add(i);
-            i=Convert.ToInt32(Console.ReadLine());
+        }
+
+        if (array.Count < 1)
+        {
+            Console.WriteLine("Введите хотя бы 1 элемент");
         }
         int result=0;
         int  count = 1;
