@@ -1,4 +1,3 @@
-//exersize 1
 namespace ConsoleApp1;
 
 class Program
@@ -25,7 +24,7 @@ class Program
         }
         int result=0;
         int  count = 1;
-        for (int j = 0; j < ((array.Count) - 1); j++)
+        for (int j = 0; j < array.Count - 1; j++)
         {
             if (array[j] == array[j + 1])
             {
