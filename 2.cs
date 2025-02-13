@@ -1,14 +1,20 @@
-//exersize 2
-namespace ConsoleApp1;
+using System;
 
-class Program
+namespace ConsoleApp1
 {
-    static void Main(string[] args)
+    class Program
     {
-        int n = Convert.ToInt32(Console.ReadLine());
-        if (n >= 2)
+        static void Main(string[] args)
         {
-            for (int j = 2; j < n + 1; j++)
+            int n;
+            Console.Write("Введите число (не менее 2): ");
+            while (!int.TryParse(Console.ReadLine(), out n) || n < 2)
+            {
+                Console.WriteLine("Ошибка! Введите целое число не менее 2.");
+                Console.Write("Попробуйте снова: ");
+            }
+
+            for (int j = 2; j <= n + 1; j++)
             {
                 if (n % j == 0)
                 {
@@ -16,11 +22,6 @@ class Program
                     break;
                 }
             }
-        }
-        else
-        {
-            Console.WriteLine("Введенное число должно быть не меньше 2");
-                    
         }
     }
 }
