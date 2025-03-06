@@ -1,0 +1,260 @@
+namespace ConsoleApp1;
+
+public class Lesson3_4
+{
+    public static string Task10(string input)
+    {
+        int[] numbers;
+        int count = 0;
+        string[] parts = input.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+        try
+        {
+            numbers = Array.ConvertAll(parts, int.Parse);
+        }
+        catch
+        {
+            return "Ошибка! Введите только числа через пробел.";
+        }
+
+        for (int i = 0; i < numbers.Length - 1; i++)
+        {
+            if (numbers[i] == 0) break;
+            if (numbers[i] < numbers[i + 1])
+            {
+                count++;
+            }
+        }
+
+        return count.ToString();
+    }
+
+    public static string Task11(int a, int b)
+    {
+        if (a == 0 && b == 0)
+        {
+            return "many solution";
+        }
+
+        if ((a == 0 && b != 0) || (float)b / a != (float)(b / a))
+        {
+            return "no solution";
+        }
+
+        return $"{b / a}";
+    }
+
+    public static void Test_Task11()
+    {
+        if (Task11(1, -2) == "-2") Console.WriteLine("OK_1");
+        else Console.WriteLine("Error_1");
+        if (Task11(2, -1) == "no solution") Console.WriteLine("OK_2");
+        else Console.WriteLine("Error_2");
+        if (Task11(0, 0) == "many solution") Console.WriteLine("OK_3");
+        else Console.WriteLine("Error_3");
+        if (Task11(5, 0) == "0") Console.WriteLine("OK_4");
+        else Console.WriteLine("Error_4");
+        if (Task11(0, 7) == "no solution") Console.WriteLine("OK_5");
+        else Console.WriteLine("Error_5");
+        if (Task11(10, 11) == "no solution") Console.WriteLine("OK_6");
+        else Console.WriteLine("Error_6");
+        if (Task11(1, 30000) == "30000") Console.WriteLine("OK_7");
+        else Console.WriteLine("Error_7");
+        if (Task11(-15000, 15000) == "-1") Console.WriteLine("OK_8");
+        else Console.WriteLine("Error_8");
+        if (Task11(-29999, 24999) == "no solution") Console.WriteLine("OK_9");
+        else Console.WriteLine("Error_9");
+    }
+
+    public static int Task12(int[] array)
+    {
+        int minValue = int.MaxValue;
+        bool foundEven = false;
+        for (int i = 0; i < array.Length; i++)
+        {
+            if ((minValue > array[i]) && (array[i] % 2 == 0))
+            {
+                minValue = array[i];
+                foundEven = true;
+            }
+        }
+
+        return foundEven ? minValue : 0;
+    }
+
+    public static string Task13(int[] array, int target)
+    {
+        int left = 0, right = array.Length - 1;
+        while (left <= right)
+        {
+            int mid = (left + right) / 2;
+            if (array[mid] == target) return mid.ToString();
+            if (array[mid] < target) left = mid + 1;
+            else right = mid - 1;
+        }
+
+        return "NO";
+    }
+
+    public static void Test_Task13()
+    {
+        if (Task13(new int[] { 1, 2, 3, 4, 5 }, 5) == "4") Console.WriteLine("OK_1");
+        else Console.WriteLine("Error_1");
+        if (Task13(new int[] { 1, 2, 3, 4, 5 }, 6) == "NO") Console.WriteLine("OK_2");
+        else Console.WriteLine("Error_2");
+        if (Task13(new int[] { 1, 1, 2, 3, 4, 5 }, 1) == "0") Console.WriteLine("OK_3");
+        else Console.WriteLine("Error_3");
+        if (Task13(new int[] { 2 }, 2) == "0") Console.WriteLine("OK_4");
+        else Console.WriteLine("Error_4");
+    }
+
+    public static int Task14(int input)
+    {
+        int count = 0;
+        while (input != 0)
+        {
+            count += input % 10;
+            input /= 10;
+        }
+
+        return count;
+    }
+
+    public static void Test_Task14()
+    {
+        if (Task14(123) == 6) Console.WriteLine("OK_1");
+        else Console.WriteLine("Error_1");
+        if (Task14(0) == 0) Console.WriteLine("OK_2");
+        else Console.WriteLine("Error_2");
+        if (Task14(103) == 4) Console.WriteLine("OK_3");
+        else Console.WriteLine("Error_3");
+    }
+
+    public static int Task15(int[] array)
+    {
+        int[] result = array.Where(x => (x % 2 == 0 && x > 0)).ToArray();
+        return result.Sum() / result.Length;
+    }
+
+    public static void Test_Task15()
+    {
+        Console.WriteLine(Task15(new int[] { 1, 2, 3, 4, 5 }) == 3
+            ? "OK_1"
+            : $"Error_1\nInput: {Task15(new int[] { 1, 2, 3, 4, 5 })}");
+        Console.WriteLine(Task15(new int[] { 0, -2, 3, 4, 5 }) == 4
+            ? "OK_2"
+            : $"Error_2\nInput: {Task15(new int[] { 0, -2, 3, 4, 5 })}");
+    }
+
+    private static int Task16(int a, int b)
+    {
+        if (a < b)
+        {
+            (a, b) = (b, a);
+        }
+
+        while (b != 0)
+        {
+            int temp = b;
+            b = a % b;
+            a = temp;
+        }
+
+        return Math.Abs(a);
+    }
+
+    public static void Test_Task16()
+    {
+        if (Task16(3, 6) == 3) Console.WriteLine("OK_1");
+        else Console.WriteLine("Error_1");
+        if (Task16(6, 3) == 3) Console.WriteLine("OK_2");
+        else Console.WriteLine("Error_2");
+        if (Task16(6, 0) == 6) Console.WriteLine("OK_3");
+        else Console.WriteLine("Error_3");
+        if (Task16(0, 6) == 6) Console.WriteLine("OK_4");
+        else Console.WriteLine("Error_4");
+        if (Task16(1, 6) == 1) Console.WriteLine("OK_5");
+        else Console.WriteLine("Error_5");
+        if (Task16(-1, 6) == 1) Console.WriteLine("OK_6");
+        else Console.WriteLine("Error_6");
+    }
+
+    public static string Task18(int number)
+    {
+        if (number <= 1)
+            return "Введите натуральное число n > 1";
+
+        List<int> factors = new List<int>();
+        int divisor = 2;
+        while (number > 1)
+        {
+            while (number % divisor == 0)
+            {
+                factors.Add(divisor);
+                number /= divisor;
+            }
+
+            divisor++;
+            if (divisor * divisor > number)
+            {
+                if (number > 1)
+                {
+                    factors.Add(number);
+                    break;
+                }
+            }
+        }
+
+        return string.Join("*", factors);
+    }
+
+    public static void Test_Task18()
+    {
+        if (Task18(5) == "5") Console.WriteLine("OK_1");
+        else Console.WriteLine("Error_1");
+        Console.WriteLine(Task18(12) == "2*2*3" ? "OK_2" : $"Error_2");
+        Console.WriteLine(Task18(1001) == "7*11*13" ? "OK_3" : $"Error_3");
+        Console.WriteLine(Task18(904) == "2*2*2*113" ? "OK_4" : $"Error_4");
+        Console.WriteLine(Task18(15470) == "2*5*7*13*17" ? "OK_5" : $"Error_5");
+    }
+    static int SumDivisors(int num)
+    {
+        int sum = 0;
+        for (int i = 1; i <= num; i++)
+        {
+            if (num % i == 0)
+            {
+                sum += i;
+            }
+        }
+        return sum;
+    }
+    public static int Task19(int n)
+    {
+        int bestNumber = 1;
+        int bestSum = SumDivisors(1);
+        for (int i = 2; i <= n; i++)
+        {
+            int currentSum = SumDivisors(i);
+            if ((currentSum > bestSum) || (currentSum == bestSum && i < bestNumber))
+            {
+                bestSum = currentSum;
+                bestNumber = i;
+            }
+        }
+        return bestNumber;
+    }
+
+    public static void Test_Task19()
+    {
+        Console.WriteLine(Task19(11) == 10 ? "OK_1" : $"Error_1");
+        Console.WriteLine(Task19(7) == 6 ? "OK_2" : $"Error_2");
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        Lesson3_4.Test_Task19();
+    }
+}
